@@ -1,0 +1,56 @@
+<% include header %>
+	<div class="container main-body">
+		<div class="row">
+			<div class="col-lg-9 col-md-9 left-list">
+					<h4 class="comment-list-title">用户基本信息</h4>
+					<p><img src="<%=person.portrait%>" alt="" width="70" height="70"></p>
+					<p>用户名：<%=person.user%></p>
+					<p>个性签名：<%=person.signature%></p>
+					<p>性别：
+						<%if(person.sex == 0){%>
+							男
+						<%}else{%>
+							女
+						<%}%>
+					</p>
+					<p>年龄：<%=person.age%></p>
+					<p>积分：<%=person.score%></p>
+					<p>段位：<%if(person.score<=10){%>
+							<a href="/score">英勇黄铜</a>
+						<%}else if(person.score<=50){%>
+							<a href="/score">不屈白银</a>
+						<%}else if(person.score<=150){%>
+							<a href="/score">荣耀黄金</a>
+						<%}else if(person.score<=300){%>
+							<a href="/score">华贵铂金</a>
+						<%}else if(person.score<=450){%>
+							<a href="/score">璀璨钻石</a>
+						<%}else if(person.score<=600){%>
+							<a href="/score">超凡大师</a>
+						<%}else{%>
+							<a href="/score">最强王者</a>
+						<%}%></p>
+					<p>职业：<%=person.profession%></p>
+					<p>所在地：<%=person.city%></p>
+				<div class="main-content">
+					<h4 class="comment-list-title">发布的话题</h4>
+					<ul class="my-topic-list">
+					<%if(person.mytopic.length!=0){for(i=0;i<person.mytopic.length;i++){%>
+						<li><a href="/article/details/<%=person.mytopic[i]._id%>"><%=person.mytopic[i].title%></a><span class="pull-right"><%=person.mytopic[i].category.name%></span><span class="pull-right" style="margin-right:10px;"><%=moment(person.mytopic[i].meta.updateAt).format('YYYY/MM/DD')%>%></span></li>
+						<%}}%>
+					</ul>
+					<h4 class="comment-list-title">参与的话题</h4>
+					<ul class="topic-list">
+						<%if(person.topic.length!=0){for(i=0;i<person.topic.length;i++){%>
+						<li><a href="/article/details/<%=person.topic[i]._id%>"><%=person.topic[i].title%></a><span class="pull-right"><%=person.topic[i].category.name%></span><span class="pull-right" style="margin-right:10px;"><%=moment(person.topic[i].meta.updateAt).format('YYYY/MM/DD')%>%></span></li>
+						<%}}%>
+					</ul>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3">
+				<% include right%>
+			</div>
+		</div>
+	</div>
+	<script src="/js/userManage.js"></script>
+<% include footer %>

@@ -1,0 +1,21 @@
+<% include header %>
+	<div class="container main-body">
+		<div class="panel panel-default" style="margin-top:40px;">
+			<div class="panel-heading">用户列表</div>
+			  <table class="table">
+			  	<tr>
+			  		<th>用户名</th>
+			  		<th>积分</th>
+			  		<th>注册时间</th>
+			  	</tr>
+			  	<% for(i=0;i<users.length;i++){%>
+				  	<tr>
+				  		<td><a href="/user/view/<%=users[i]._id%>"><%=users[i].user%></a></td>
+				  		<td><%=users[i].score%></td>
+				  		<td><%=moment(users[i].meta.createAt).format('YYYY/MM/DD')%></td>
+				  	</tr>
+			  	<%}%>
+			  </table>
+		</div>
+	</div>
+<% include footer %>

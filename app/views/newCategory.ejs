@@ -1,0 +1,39 @@
+<% include header %>
+	<div class="container main-body">
+		<div class="row">
+			<div class="col-lg-9 col-md-9 left-list">
+				<div class="main-content">
+					<form class="form-horizontal" role="form" action="/admin/newCategory" method="post">
+						<div class="form-group">
+						    <label for="category" class="col-sm-2 control-label">分类名称：</label>
+						    <div class="col-sm-10">
+						      <input type="text" class="form-control" name="category" id="category" placeholder="分类名称">
+						    </div>
+						 </div>
+						 <p class="text-center"><input type="submit" class="btn btn-primary" value="新增"></p>
+					</form>
+					<div class="panel panel-default" style="margin-top:40px;">
+						<div class="panel-heading">话题分类列表</div>
+						  <table class="table">
+						  	<tr>
+						  		<th>分类名称</th>
+						  		<th>查看</th>
+						  		<th>数量</th>
+						  	</tr>
+						  	<% for(i=0;i<categorys.length;i++){%>
+							  	<tr>
+							  		<td><%=categorys[i].name%></td>
+							  		<td><a href="/admin/category?name=<%=categorys[i].name%>">查看</a></td>
+							  		<td><%=categorys[i].article.length%></td>
+							  	</tr>
+						  	<%}%>
+						  </table>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3">
+				<% include right%>
+			</div>
+		</div>
+	</div>
+<% include footer %>

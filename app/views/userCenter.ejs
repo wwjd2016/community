@@ -1,0 +1,83 @@
+<% include header %>
+	<div class="container main-body">
+		<div class="row">
+			<div class="col-lg-9 col-md-9 left-list">
+				<div class="main-content">
+					<div class="jumbotron">
+						<p>
+							注册于<%=moment(userLocals.meta.createAt).format('YYYY-MM-DD')%>
+							<a href="/user/repassword" class="btn btn-default">修改密码</a>
+						</p>
+					</div>
+					<form class="form-horizontal" role="form" action="/user/manage" method="post">
+						<div class="form-group">
+						    <label for="user" class="col-sm-2 control-label">用户名：</label>
+						    <div class="col-sm-10">
+						      <input type="text" disabled name="user" class="form-control" id="user" value="<%=userLocals.user%>">
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="sex" class="col-sm-2 control-label">性别：</label>
+						    <div class="col-sm-10">
+						      <!-- <input type="text"  name="sex" class="form-control" id="sex" value="<%=userLocals.sex%>"> -->
+						      <select name="sex" id="sex" class="form-control">
+						      <%["男","女"].forEach(function(item,key){%>
+							      <%if(userLocals.sex == key){%>
+							      	<option value="<%=userLocals.sex%>" selected><%=item%></option>
+							      <%}else{%>
+							      	<option value="<%=key%>"><%=item%></option>
+							      <%}%>	
+						      <%})%>
+						      </select>
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="age" class="col-sm-2 control-label">年龄：</label>
+						    <div class="col-sm-10">
+						      <input type="text"  name="age" class="form-control" id="age" value="<%=userLocals.age%>">
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="profession" class="col-sm-2 control-label">职业：</label>
+						    <div class="col-sm-10">
+						      <input type="text"  name="profession" class="form-control" id="profession" value="<%=userLocals.profession%>">
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="city" class="col-sm-2 control-label">城市：</label>
+						    <div class="col-sm-10">
+						      <input type="text"  name="city" class="form-control" id="city" value="<%=userLocals.city%>">
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="signature"  class="col-sm-2 control-label">个性签名：</label>
+						    <div class="col-sm-10">
+						      <textarea class="form-control" name="signature" id="signature" cols="85" rows="5" placeholder="编辑你的个性签名"><%=userLocals.signature%></textarea>
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="personUrl" class="col-sm-2 control-label">个人网站：</label>
+						    <div class="col-sm-10">
+						      <input type="text" value="<%=userLocals.personUrl%>" name="personUrl" class="form-control" id="personUrl" placeholder="个人网站">
+						    </div>
+						 </div>
+						 <div class="form-group">
+						    <label for="portrait" class="col-sm-2 control-label">头像：</label>
+						    <div class="col-sm-10">
+						    	<img src="<%=userLocals.portrait%>" class="preview-img" alt="">
+						    	<span class="upload btn btn-default">修改</span>
+						    	<em>(支持jpg,gif,png等图片格式,默认大小为100*100)</em>
+						      	<input type="file" style="display:none" name="portrait"  class="upload-hidden form-control" id="portrait" value="<%=userLocals.portrait%>">
+						    </div>
+						 </div>
+						 <p class="text-center"><span class="person-submit btn btn-primary">提交</span></p>
+					</form>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3">
+				<% include right%>
+			</div>
+		</div>
+	</div>
+	<script src="/js/userManage.js"></script>
+<% include footer %>

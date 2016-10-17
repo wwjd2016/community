@@ -1,0 +1,57 @@
+<div class="right-information">
+	<h4>个人信息</h4>
+	<% if (locals.userLocals){%>
+		<p><img src="<%=userLocals.portrait%>" class="head-portrait" alt=""></p>
+		<h5><a href="/user/userCenter"><%=userLocals.user%></a>&nbsp;&nbsp;<a href="/user/userCenter">个人中心</a><span> | </span><a href="/user/userTopic">话题</a><span> | </span><a href="/user/loginOut">注销</a></h5>
+		<%if(userLocals.power == 20){%>
+			<p><a href="/admin">后台管理</a></p>
+		<%}%>
+			<p>段位:
+		<%if(userLocals.score<=10){%>
+			<a href="/score" class="score1">英勇黄铜</a>
+		<%}else if(userLocals.score<=50){%>
+			<a href="/score" class="score2">不屈白银</a>
+		<%}else if(userLocals.score<=150){%>
+			<a href="/score" class="score3">荣耀黄金</a>
+		<%}else if(userLocals.score<=300){%>
+			<a href="/score" class="score4">华贵铂金</a>
+		<%}else if(userLocals.score<=450){%>
+			<a href="/score" class="score5">璀璨钻石</a>
+		<%}else if(userLocals.score<=600){%>
+			<a href="/score" class="score6">超凡大师</a>
+		<%}else{%>
+			<a href="/score" class="score7">最强王者</a>
+		<%}%>
+		<span us-id="<%=userLocals._id%>" class="unread">未读消息：<a href="/user/messages/details/<%=userLocals._id%>" class="badge">0</a></span>
+		</p>
+		<p class="signature"><%=userLocals.signature%></p>
+	<%}else{%>
+	<h5>WSoft中文社区</h5>
+	<p>已有账号？<a href="/user/login"> 登录 </a>我还没有账号<a href="/user/register"> 注册</a></p>
+	<%}%>
+</div>
+<script>
+	$(function(){
+		if ($(".unread").length == 0) {
+			return false;
+		}else{
+			var user = $(".unread").attr("us-id");
+			$.ajax({
+				type:"POST",
+				url:"/user/messages",
+				data:{user:user},
+				success:function(data){
+					var temp = 0;
+					if (data.messages.length==0)
+						return $(".unread .badge").text(data.messages.length)
+					for(i=0;i<data.messages.length;i++){
+						if (data.messages[i].staus == 0) {
+							temp += 1;
+						}
+					}
+					$(".unread .badge").text(temp)
+				}
+			})
+		}
+	})
+</script>

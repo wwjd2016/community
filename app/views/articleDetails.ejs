@@ -1,0 +1,61 @@
+<% include header %>
+	<div class="container main-body">
+		<div class="row">
+			<div class="col-lg-9 col-md-9 left-list">
+				<div class="main-content">
+					<h3 class="article-title text-center"><%=article.title%>
+					<%if(!!locals.userLocals&&userLocals._id == article.author._id){%> 
+					<div class="function-btn"><a href="/article/delete/<%=article._id%>?category=<%=article.category._id%>&author=<%=article.author._id%>">删除</a>&nbsp;&nbsp;<a href="/article/editor/<%=article._id%>">修改</a></div>
+					<%}%>
+					</h3>
+					<p class="article-sider text-right">作者：<%=article.author.user%>&nbsp;&nbsp;&nbsp;&nbsp;最后修改时间：<%=moment(article.meta.updateAt).format('YYYY/MM/DD')%></p>
+					<div class="article-text">
+						<%-article.text%>
+					</div>
+					<div>
+					<h4 class="comment-list-title">评论列表</h4>
+						<ul class="comment-list">
+						<% if(comment.length!=0){ for(i=0;i<comment.length;i++){%>
+							<li>
+								<div comment-id="<%=comment[i]._id%>"><a href="#"><img src="<%=comment[i].from.portrait%>" width="30" height="30" alt=""></a><a href="#" class="comment-user" data-id="<%=comment[i].from._id%>"><%=comment[i].from.user%></a><span><%=moment(comment[i].meta.createAt).format('YYYY-MM-DD hh:mm:ss')%></span><a href="#" class="replay-btn pull-right">回复</a></div>
+								<div class="comment-text"><%=comment[i].content%></div>
+								<ul class="comment-floor">
+								<% if(comment[i].replay.length!=0){ for(j=0;j<comment[i].replay.length;j++){%>
+								 	<li>
+										<div comment-id="<%=comment[i]._id%>"><a href="#"><img src="<%=comment[i].replay[j].from.portrait%>" width="30" height="30" alt=""></a><a href="#" class="comment-user" data-id="<%=comment[i].replay[j].from._id%>"><%=comment[i].replay[j].from.user%></a><span><%=moment(comment[i].createAt).format('YYYY-MM-DD hh:mm:ss')%></span><a href="#" class="replay-btn pull-right">回复</a></div>
+										<div class="comment-text"><a href="#" class="atuser">@<%=comment[i].replay[j].to.user%></a><%=comment[i].replay[j].content%></div>
+									</li>
+									<%}}%>
+								</ul>
+							</li>
+							<%}}%>
+						</ul>
+						<div class="comment-post">
+							<h4 class="comment-list-title">评论/回复</h4>
+							<form role="form" action="/article/comment" method="post">
+								<input type="hidden" name="authorId" value="<%=article.author._id%>">
+								<input type="hidden" name="articleId" value="<%=article._id%>">
+								<input type="hidden" class="replay-comment" name="commentId" value="">
+								<input type="hidden" class="replay-to" name="to" value="main">
+								<textarea name="content" id="content" class="comment-box form-control" placeholder="评论"></textarea>
+								<p class="text-center" style="margin-top:10px;"><input type="submit" value="提交" class="btn btn-primary"></p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3">
+				<% include right%>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function(){
+			$(document).on("click",".replay-btn",function(){
+				$(".comment-box").attr("placeholder","回复"+$(this).parent().find(".comment-user").text());
+				$(".replay-to").val($(this).parent().find(".comment-user").attr("data-id"));
+				$(".replay-comment").val($(this).parent().attr("comment-id"));
+			})
+		})
+	</script>
+<% include footer %>

@@ -1,0 +1,66 @@
+<% include header %>
+	<div class="container main-body">
+		<div class="row">
+			<div class="col-lg-9 col-md-9 left-list">
+				<div class="main-content">
+					<div class="top-btn-groups">
+						<%if(category == "all"){%>
+							<a href="/" class="btn btn-active">全部</a>
+						<%}else{%>
+							<a href="/" class="btn">全部</a>
+						<%}%>
+						<%categorys.forEach(function(item,key){%>
+							<%if(item._id == category){%>
+							<a href="/?tab=<%=item._id%>" class="btn btn-active"><%=item.name%></a>
+							<%}else{%>
+							<a href="/?tab=<%=item._id%>" class="btn"><%=item.name%></a>
+						<%}})%>
+					</div>
+					<div class="list-content">
+						<ul class="article-list">
+						<% for(i=0;i<articles.length;i++){%>
+							<li class="clearfix">
+								<a href="/user/view/<%=articles[i].author._id%>" class="pull-left"><img src="<%=articles[i].author.portrait%>" alt="" width="30" height="30"></a>
+								<span class="reply_count pull-left">
+								    <span class="count_of_replies" title="回复数">
+								      <%=articles[i].rep%>
+								    </span>
+								    <span class="count_seperator">/</span>
+								    <span class="count_of_visits" title="点击数">
+								      <%=articles[i].cli%>
+								    </span>
+							  	</span>
+							  	<p class="pull-left">
+							  		<span class="put-top">置顶</span>
+							  		<a href="/article/details/<%=articles[i]._id%>"><%=articles[i].title%></a>
+							  	</p>
+								<span class="last_time pull-right">
+							    <%=moment(articles[i].meta.createAt).format('YYYY/MM/DD')%>
+							 	</span>
+							</li>
+							<%}%>
+						</ul>
+							<nav>
+							  <ul class="pagination">
+							  	<span class="btn btn-default counts">共<%=Math.ceil(counts/20)%>页<%=counts%>条主题</span>
+							  </ul>
+							</nav>	
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3">
+			<% include right%>
+			</div>
+		</div>
+	</div>
+	<script src="/js/page.js"></script>
+	<script>
+		$(function(){
+			var pages = <%=page%>;
+			var category = '<%=category%>';
+			var counts = <%=counts%>;
+				counts = Math.ceil(counts/20);
+			page(pages,counts,category,".pagination");
+		})
+	</script>
+<% include footer %>
