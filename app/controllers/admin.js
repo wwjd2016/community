@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Category = mongoose.model('Category');
 var User = mongoose.model('User');
+var Feed = mongoose.model('Feed');
 
 module.exports = function (app) {
   //限制权限、以及登录状态
@@ -79,5 +80,16 @@ app.get('/admin/users',function(req,res,next){
     if (err) {console.log(err)};
     res.render('users',{title:"用户列表",users:users})
   })
+})
+//反馈管理
+app.get("/admin/feedbacks",function(req,res,next){
+  Feed.find({})
+      .populate('author','user _id')
+      .exec(function(err,feedbacks){
+        res.render("feedList",{
+          title:"反馈列表",
+          feedbacks:feedbacks
+        })
+      })
 })
 };

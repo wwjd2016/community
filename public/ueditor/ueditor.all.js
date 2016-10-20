@@ -23974,7 +23974,9 @@ UE.plugin.register('autosave', function (){
             },
 
             'contentchange': function () {
-
+               if(!me.getOpt("enableAutoSave")){//自己添加的关闭自动保存
+                     return;
+                }
                 if ( !saveKey ) {
                     return;
                 }

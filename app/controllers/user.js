@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Article = mongoose.model('Article');
+var Feed = mongoose.model('Feed');
 var formidable = require('formidable');
 var userDirPath = 'public/upload/';
 var fs = require('fs');
@@ -8,7 +9,7 @@ var bcrypt = require('bcrypt-nodejs');
 module.exports = function (app) {
 //限制必须登录操作
 app.use(['/user/userCenter','/user/headPortrait','/user/userTopic','/user/messages/details/:id',
-	'/user/messages/unread/:id','/user/repassword'],function(req,res,next){
+	'/user/messages/unread/:id','/user/repassword','/user/feedback'],function(req,res,next){
 	if (typeof(req.session.userSession) == "undefined")
 		return res.redirect("/user/login");
 		next();
@@ -298,6 +299,25 @@ app.post('/user/repassword',function(req,res,next){
 	})
 
 })
-
-
+//建议反馈
+app.get('/user/feedback',function(req,res,next){
+	res.render("feedback",{
+		title:"建议反馈"
+	})
+})
+//提交反馈
+app.post('/user/feedback',function(req,res,next){
+	var FeedEntity = new Feed({
+		title:req.body.title,
+		author:req.session.userSession._id,
+		text:req.body.feedback
+	})
+	FeedEntity.save(function(err){
+		if (err) {console.log(err)};
+		res.render("messageTip",{
+			title:"提交成功",
+			messages:"反馈提交成功，谢谢您的宝贵意见！"
+		})
+	})
+})
 };

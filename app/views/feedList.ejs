@@ -1,0 +1,15 @@
+<% include header %>
+	<div class="container main-body">
+	<%feedbacks.forEach(function(item,key){%>
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title"><%=item.title%> <a href="/user/view/<%=item.author._id%>" class="pull-right">提交人：<%=item.author.user%></a></h3>
+		  </div>
+		  <div class="panel-body">
+		    <%=item.text%>
+		  </div>
+		  <div class="panel-footer">提交时间：<%=moment(item.meta.createAt).format('YYYY/MM/DD')%></div>
+		</div>
+	<%})%>
+	</div>
+<% include footer %>

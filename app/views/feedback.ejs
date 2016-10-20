@@ -1,0 +1,18 @@
+<% include header %>
+	<div class="container main-body">
+			<div class="left-list pull-left">
+				<h3 class="text-center"><span class="glyphicon glyphicon-edit"></span> 建议反馈</h3>
+				<div class="well text-center">
+				    亲爱的用户，欢迎您能给我们提出宝贵的意见。
+				</div>
+				<form action="/user/feedback" method="post" role="form">
+					<input type="text" name="title" id="title" class="form-control" placeholder="标题">
+					<textarea name="feedback" id="feedback" class="form-control" placeholder="内容"></textarea>
+					<p><input type="submit" value="提交" class="btn btn-primary btn-lg btn-block"></p>
+				</form>
+			</div>
+			<div class="pull-right">
+				<% include right%>
+			</div>
+	</div>
+<% include footer %>

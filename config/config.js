@@ -1,6 +1,6 @@
 var path = require('path'),
     rootPath = path.normalize(__dirname + '/..'),
-    env = process.env.NODE_ENV || 'development';
+    env = process.env.NODE_ENV || 'production';
 
 var config = {
   development: {
@@ -9,7 +9,7 @@ var config = {
       name: 'wechatsystem'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/wechatsystem-development'
+    db: 'mongodb://localhost/wechatsystem'
   },
 
   test: {
@@ -27,7 +27,7 @@ var config = {
       name: 'wechatsystem'
     },
     port: process.env.PORT || 3000,
-    db: 'mongodb://localhost/wechatsystem-production'
+    db: 'mongodb://localhost/wechatsystem-development'
   }
 };
 
