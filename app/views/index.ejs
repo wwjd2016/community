@@ -1,7 +1,6 @@
 <% include header %>
 	<div class="container main-body">
-		<div class="row">
-			<div class="col-lg-9 col-md-9 left-list">
+			<div class="left-list pull-left">
 				<div class="main-content">
 					<div class="top-btn-groups">
 						<%if(category == "all"){%>
@@ -30,9 +29,8 @@
 								      <%=articles[i].cli%>
 								    </span>
 							  	</span>
-							  	<p class="pull-left">
-							  		<span class="put-top">置顶</span>
-							  		<a href="/article/details/<%=articles[i]._id%>"><%=articles[i].title%></a>
+							  	<p class="pull-left index-article-title">
+							  		<a href="/article/details/<%=articles[i]._id%>" class=""><%=articles[i].title%></a>
 							  	</p>
 								<span class="last_time pull-right">
 							    <%=moment(articles[i].meta.createAt).format('YYYY/MM/DD')%>
@@ -48,10 +46,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-3">
+			<div class="pull-right">
 			<% include right%>
 			</div>
-		</div>
 	</div>
 	<script src="/js/page.js"></script>
 	<script>

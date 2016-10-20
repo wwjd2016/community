@@ -5,6 +5,8 @@
 		<h5><a href="/user/userCenter"><%=userLocals.user%></a>&nbsp;&nbsp;<a href="/user/userCenter">个人中心</a><span> | </span><a href="/user/userTopic">话题</a><span> | </span><a href="/user/loginOut">注销</a></h5>
 		<%if(userLocals.power == 20){%>
 			<p><a href="/admin">后台管理</a></p>
+		<%}else{%>
+		<p><a href="/article/new">发布新话题</a></p>
 		<%}%>
 			<p>段位:
 		<%if(userLocals.score<=10){%>
@@ -26,7 +28,7 @@
 		</p>
 		<p class="signature"><%=userLocals.signature%></p>
 	<%}else{%>
-	<h5>WSoft中文社区</h5>
+	<h5>微信小程序社区</h5>
 	<p>已有账号？<a href="/user/login"> 登录 </a>我还没有账号<a href="/user/register"> 注册</a></p>
 	<%}%>
 </div>

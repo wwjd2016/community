@@ -12,7 +12,7 @@ body {
   margin: 0;
   padding: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #e1e1e1;
+  background: #f4f6f8;
 }
 li{
 	list-style: none;
@@ -23,12 +23,16 @@ li{
 }
 
 .left-list{
+	@extend .box-shadows;
 	background: #fff;
-	padding-top: 20px;
+	width: 870px;
+	padding: 10px;
 }
 .right-information{
+	@extend .box-shadows;
+	width: 255px;
 	background: #fff;
-	padding: 20px 0 20px 10px;
+	padding:10px;
 }
 .article-list a:visited {
     color: #888;
@@ -68,7 +72,8 @@ li{
 	margin: 10px 0;
 }
 .footer{
-	border-top: 2px solid #d3d3d3;
+	background: #fff;
+	min-height: 150px;
 	margin-top:40px;
     padding: 10px 0;
 }
@@ -80,9 +85,9 @@ li{
 .search-btn{
 	color: #9d9d9d;
 }
-.search-btn:hover{
-	color: #fff;
-}
+// .search-btn:hover{
+// 	color: #fff;
+// }
 .head-portrait{
 	width: 70px;
 	height: 70px;
@@ -170,4 +175,39 @@ li{
 }
 .score1,.score2,.score3,.score4,.score5,.score6,.score7{
 	font-weight: bold;
+}
+////////////////////
+.footer-list > li{
+	float: left;
+	width: 15%;
+}
+.footer-list h5{
+	font-weight: bold;
+	color: #555;
+	font-size: 14px;
+}
+.footer-list .frind-links {
+	width: 46%;
+}
+.footer-list .ewm{
+	width: 24%;
+}
+.frind-links li{
+	float: left;
+}
+.footer-list,.footer-list a{
+	color: #999;
+	text-decoration: none;
+}
+.footer-list a:hover{
+	color: #555;
+}
+.box-shadows {
+	box-shadow: 0 4px 10px rgba(0,0,0,.1);
+}
+.index-article-title{
+	display: inline-block;
+	max-width: 670px;
+	height: 45px;
+	overflow: hidden;
 }
