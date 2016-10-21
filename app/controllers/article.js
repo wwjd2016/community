@@ -7,7 +7,7 @@ var ueditor = require("ueditor");
 var path = require('path');
 module.exports = function (app) {
 		//限制必须登录操作
-app.use(['/article/comment','/article/new','/article/editor/:id','/article/editor/category','/article/delete/:id'],function(req,res,next){
+app.use(['/article/comment','/ueditor/article','/article/new','/article/editor/:id','/article/editor/category','/article/delete/:id'],function(req,res,next){
 	if (typeof(req.session.userSession) == "undefined")
 		return res.redirect("/user/login");
 	next();
@@ -54,14 +54,14 @@ app.use("/ueditor/article", ueditor(path.join(__dirname, '../../public'), functi
     var foo = req.ueditor;
 
     var imgname = req.ueditor.filename;
-
-    var img_url = '/img/ueditor/';
+    var times = new Date();
+    var img_url = '/img/ueditor/'+times.getFullYear().toString()+times.getMonth().toString()+'/';
     res.ue_up(img_url); //你只要输入要保存的地址 。保存操作交给ueditor来做
     res.setHeader('Content-Type', 'text/html');//IE8下载需要设置返回头尾text/html 不然json返回文件会被直接下载打开
   }
   //  客户端发起图片列表请求
   else if (req.query.action === 'listimage') {
-    var dir_url = '/img/ueditor/';
+    var dir_url = '/img/ueditor/'
     res.ue_list(dir_url); // 客户端会列出 dir_url 目录下的所有图片
   }
   // 客户端发起其它请求
