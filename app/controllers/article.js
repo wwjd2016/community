@@ -175,6 +175,18 @@ app.post('/article/comment',function(req,res,next){
 //主评论post
 app.post('/article/comment',function(req,res,next){
 	var commentObj = req.body;
+	function isNull( str ){//判断输入是否为空字符串
+		if ( str == "" ) return true;
+		var regu = "^[ ]+$";
+		var re = new RegExp(regu);
+		return re.test(str);
+	}
+	if (isNull(commentObj.content)) {
+		return res.render("messageTip",{
+			title:"温馨提示",
+			messages:"评论内容不能为空!"
+		})
+	}
 	if (commentObj.to == "main") {
 		var CommentEntity = new Comment({
 			article:commentObj.articleId,
@@ -192,7 +204,7 @@ app.post('/article/comment',function(req,res,next){
 			  						uid:Date.now().toString()+req.session.userSession._id.toString(),
 			  						article:commentObj.articleId,
 			  						from:req.session.userSession._id,
-			  						to:req.session.userSession._id,
+			  						to:commentObj.authorId,
 			  						content:commentObj.content
 			  					});
 			  					author.save(function(err){
