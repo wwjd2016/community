@@ -5,13 +5,13 @@
 				<ul class="list-group">
 				<h4 class="comment-list-title">未读消息(<a href="/user/messages/unread/all/?messageUid=all">全部标记为已读</a>)</h4>
 				<%messages.forEach(function(item,key){if(item.staus ==0){%>
-						<li class="list-group-item"><a href="/user/view/<%=item.from._id%>"><%=item.from.user%> </a>在 <a href="/user/messages/unread/<%=item.article._id%>?messageUid=<%=item.uid%>"><%=item.article.title%> </a>回复 <a href=""><%=item.to.user%> </a><span class="content-item"><%=item.content%><span class="pull-right"> <%=moment(item.creatAt).format('YYYY/MM/DD')%></span></li>
+						<li class="list-group-item"><a href="/user/view/<%=item.from._id%>"><%=item.from.user%> </a>在 <a href="/user/messages/unread/<%=item.article._id%>?messageUid=<%=item.uid%>"><%=item.article.title%> </a>回复 <a href=""><%=item.to.user%> </a><span class="content-item"><%-item.content%></span><span class="pull-right"> <%=moment(item.creatAt).format('YYYY/MM/DD')%></span></li>
 				<%}})%>
 				</ul>
-				<ul class="list-group">
-					<h4 class="comment-list-title">历史消息</h4>
+				<ul class="list-group history-list">
+					<h4 class="comment-list-title">历史消息 <a href="javascript:void(0)" class="look-more">查看全部</a></h4>
 				<%messages.forEach(function(item,key){if(item.staus == 1){%>
-					 <li class="list-group-item"><a href="/user/view/<%=item.from._id%>"><%=item.from.user%></a>在<a href="/user/messages/unread/<%=item.article._id%>?messageUid=<%=item.uid%>"><%=item.article.title%></a>回复<a href="/user/view/<%=item.to._id%>"><%=item.to.user%></a><span class="content-item"><%=item.content%></span><span class="pull-right"> <%=moment(item.creatAt).format('YYYY/MM/DD')%></span></li>
+					 <li class="list-group-item"><a href="/user/view/<%=item.from._id%>"><%=item.from.user%></a>在<a href="/user/messages/unread/<%=item.article._id%>?messageUid=<%=item.uid%>"><%=item.article.title%></a>回复<a href="/user/view/<%=item.to._id%>"><%=item.to.user%></a><span class="content-item"><%-item.content%></span><span class="pull-right"> <%=moment(item.creatAt).format('YYYY/MM/DD')%></span></li>
 				<%}})%>
 				</ul>
 			</div>
@@ -20,4 +20,5 @@
 			</div>
 		</div>
 	</div>
+	<script src="/js/messages.js"></script>
 <% include footer %>

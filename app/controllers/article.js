@@ -198,6 +198,10 @@ app.post('/article/comment',function(req,res,next){
 			User.findOne({_id:req.session.userSession._id})
 				.exec(function(err,user){
 			  		if (err) {console.log(err)};
+			  		var result = user.mytopic.indexOf(commentObj.articleId);//判断是否是自己发布的
+			  		if (result != -1) {
+			  			return res.redirect('/article/details/'+commentObj.articleId);
+			  		}
 			  				User.findOne({_id:commentObj.authorId},function(err,author){//存储到用户中的消息
 			  					if (err) {console.log(err)};
 			  					author.messages.push({
@@ -211,10 +215,7 @@ app.post('/article/comment',function(req,res,next){
 			  						if (err) {console.log(err)};
 			  					})
 			  				})
-			  		var result = user.mytopic.indexOf(commentObj.articleId);//判断是否是自己发布的
-			  		if (result != -1) {
-			  			return res.redirect('/article/details/'+commentObj.articleId);
-			  		}
+			  		
 			  		var result = user.topic.indexOf(commentObj.articleId);//判断是否已经存储
 			  		if (result != -1) {
 			  			return res.redirect('/article/details/'+commentObj.articleId);
@@ -247,6 +248,10 @@ app.post('/article/comment',function(req,res,next){
 			if (err) {console.log(err)};
 			User.findOne({_id:req.session.userSession._id},function(err,user){
 			  		if (err) {console.log(err)};
+			  		var result = user.mytopic.indexOf(commentObj.articleId);//判断是否是自己发布的
+			  		if (result != -1) {
+			  			return res.redirect('/article/details/'+commentObj.articleId);
+			  		}
 			  		User.findOne({_id:commentObj.authorId})
 			  				.exec(function(err,author){//存储到用户中的消息
 			  					if (err) {console.log(err)};
@@ -278,10 +283,7 @@ app.post('/article/comment',function(req,res,next){
 					  				})
 			  					})
 			  				})
-			  		var result = user.mytopic.indexOf(commentObj.articleId);//判断是否是自己发布的
-			  		if (result != -1) {
-			  			return res.redirect('/article/details/'+commentObj.articleId);
-			  		}
+			  		
 			  		var result = user.topic.indexOf(commentObj.articleId);//判断是否已经存储
 			  		if (result != -1) {
 			  			return res.redirect('/article/details/'+commentObj.articleId);
@@ -292,7 +294,6 @@ app.post('/article/comment',function(req,res,next){
 			  			if (err) {console.log(err)};
 			  				req.session.userSession = u;
 					  		res.redirect('/article/details/'+commentObj.articleId);
-			  				
 			  		});
 		  		})
 		})
@@ -316,7 +317,7 @@ app.get('/article/details/:id',function(req,res,next){
 	var articleId = req.params.id;
 	Article.findOne({_id:articleId})
 			.populate('author','_id user')
-			.populate('category','_id')
+			.populate('category','_id name')
 			.exec(function(err,article){
 				if (err) {console.log(err)};
 				Comment.find({article:articleId})

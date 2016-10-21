@@ -21,7 +21,7 @@ module.exports = function (app) {
 		  		Article.find(temp)
 		  		.skip(20*(parseInt(page)-1))
 				.limit(20)
-				.sort({_id:-1})
+				.sort({rep:-1})
 				.populate('author','_id portrait')
 				.exec(function (err, articles) {
 				    if (err) return next(err);

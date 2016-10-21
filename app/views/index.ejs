@@ -33,7 +33,7 @@
 							  		<a href="/article/details/<%=articles[i]._id%>" class=""><%=articles[i].title%></a>
 							  	</p>
 								<span class="last_time pull-right">
-							    <%=moment(articles[i].meta.createAt).format('YYYY/MM/DD')%>
+							    <%=moment(articles[i].meta.updateAt).format('YY/MM/DD hh:mm')%>
 							 	</span>
 							</li>
 							<%}%>

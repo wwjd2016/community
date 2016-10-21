@@ -145,7 +145,7 @@ li {
 }
 
 .atuser {
-  margin-right: 10px;
+  margin: 0 10px;
 }
 
 .comment-post {
@@ -243,7 +243,7 @@ li {
 
 .index-article-title {
   display: inline-block;
-  max-width: 670px;
+  max-width: 630px;
   height: 45px;
   overflow: hidden;
 }
@@ -262,6 +262,15 @@ li {
 .comeback a {
   font-size: 18px;
   text-decoration: none;
+}
+
+.fengedian {
+  margin: 0 5px;
+}
+
+.history-list {
+  height: 400px;
+  overflow: hidden;
 }
 
 /*# sourceMappingURL=style.css.map */
