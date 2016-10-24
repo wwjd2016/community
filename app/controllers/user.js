@@ -245,12 +245,6 @@ app.get('/user/messages/unread/:id',function(req,res,next){
 	var uid = req.query.messageUid;
 	User.findOne({_id:req.session.userSession._id})
 		.exec(function(err,user){
-			// user.messages.forEach(function(item,key){
-			// 	if (item.uid == uid) {
-			// 		item.staus = 1;
-			// 		break;
-			// 	}
-			// });
 			if (uid == "all") {
 				for(i=0;i<user.messages.length;i++){		
 					user.messages[i].staus = 1;

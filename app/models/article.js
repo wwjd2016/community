@@ -23,11 +23,11 @@ var ArticleSchema = new Schema({
     default:0
   },
   meta:{
-        createAt:{
+        createAt:{//创建时间
             type:Date,
             default:Date.now()
         },
-        updateAt:{
+        updateAt:{//最后评论时间
             type:Date,
             default:Date.now()
         }
@@ -35,11 +35,12 @@ var ArticleSchema = new Schema({
 });
 
 ArticleSchema.pre("save",function(next){
-	if (this.isNew){
+	   if (this.isNew){
         this.meta.createAt = this.meta.updateAt = Date.now();
-    }else{
-        this.meta.updateAt = Date.now();
     }
+    // else{
+    //     this.meta.updateAt = Date.now();
+    // }
     next();
 });
 

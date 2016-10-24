@@ -166,6 +166,7 @@ app.post('/article/comment',function(req,res,next){
 	Article.findOne({_id:commentObj.articleId},function(err,article){
 		if (err) {console.log(err)};
 		article.rep = article.rep+1;//评论数加1
+		article.meta.updateAt = Date.now();//存储最新评论时间
 		article.save(function(err){
 			if (err) {console.log(err)};
 			next();

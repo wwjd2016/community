@@ -9,17 +9,5 @@ $(function(){
 		if (_this.parents(".nav-search").length == 0)
 			$(".switch-input").animate({width:"72px"},500).val("");	
 	})
-
-	//获取会员数
-	$.ajax({
-		type:"POST",
-		url:"/user/get",
-		success:function(data){
-			$(".user-count").text(data.count)
-		},
-		error:function(){
-
-		}
-	});
 	
 })

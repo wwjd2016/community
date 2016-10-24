@@ -11,7 +11,7 @@
 					<p class="article-sider text-right">
 						作者：<%=article.author.user%><span class="fengedian">•</span>
 						分类：<%=article.category.name%><span class="fengedian">•</span>
-						最后修改时间：<%=moment(article.meta.updateAt).format('YYYY/MM/DD')%>
+						最后评论时间：<%=moment(article.meta.updateAt).format('YYYY/MM/DD')%>
 					</p>
 					<div class="article-text">
 						<%-article.text%>
@@ -42,7 +42,7 @@
 								<input type="hidden" class="replay-comment" name="commentId" value="">
 								<input type="hidden" class="replay-to" name="to" value="main">
 								<textarea name="content" style="height:100px;" id="content" class="comment-box" placeholder="评论"></textarea>
-								<p class="text-center" style="margin-top:10px;"><input type="submit" value="提交" class="btn btn-primary"></p>
+								<p class="text-center" style="margin-top:10px;"><input type="submit" value="提交" class="btn btn-primary">(<span class="comment-type">发表评论</span>)</p>
 							</form>
 						</div>
 					</div>
@@ -53,22 +53,8 @@
 			</div>
 		</div>
 	</div>
- <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
-  <script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
-  <script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
-	<script>
-		$(function(){
-			//回复某人
-			$(document).on("click",".replay-btn",function(){
-				$(".comment-box").attr("placeholder","回复"+$(this).parent().find(".comment-user").text());
-				$(".replay-to").val($(this).parent().find(".comment-user").attr("data-id"));
-				$(".replay-comment").val($(this).parent().attr("comment-id"));
-			})
-			//富文本编辑器
-			   var ue = UE.getEditor('content',{
-			  	iframeCssUrl: '/ueditor/themes/iframe.css',// 引入css
-			  	toolbars:[['FullScreen', 'Source','insertcode', 'Undo', 'Redo','bold','italic','test','link','unlink','emotion','simpleupload','blockquote','insertorderedlist','insertunorderedlist','preview']]
-			  });
-		})
-	</script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src='/js/articleDetails.js'></script>
 <% include footer %>

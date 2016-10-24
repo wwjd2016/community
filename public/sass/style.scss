@@ -33,6 +33,7 @@ li{
 	width: 255px;
 	background: #fff;
 	padding:10px;
+	margin-bottom: 15px;
 }
 .article-list a:visited {
     color: #888;
@@ -231,4 +232,10 @@ li{
 .history-list{
 	height: 400px;
 	overflow: hidden;
+}
+.right-list li{
+	margin-top: 5px;
+}
+.right-list li a{
+	text-decoration: none;
 }

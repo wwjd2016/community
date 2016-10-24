@@ -32,28 +32,16 @@
 	<p>已有账号？<a href="/user/login"> 登录 </a>我还没有账号<a href="/user/register"> 注册</a></p>
 	<%}%>
 </div>
-<script>
-	$(function(){
-		if ($(".unread").length == 0) {
-			return false;
-		}else{
-			var user = $(".unread").attr("us-id");
-			$.ajax({
-				type:"POST",
-				url:"/user/messages",
-				data:{user:user},
-				success:function(data){
-					var temp = 0;
-					if (data.messages.length==0)
-						return $(".unread .badge").text(data.messages.length)
-					for(i=0;i<data.messages.length;i++){
-						if (data.messages[i].staus == 0) {
-							temp += 1;
-						}
-					}
-					$(".unread .badge").text(temp)
-				}
-			})
-		}
-	})
-</script>
+
+<div class="right-information">
+	<h4 class="comment-list-title">文档、开发工具</h4>
+</div>
+<div class="right-information">
+	<h4 class="comment-list-title">热门文章</h4>
+	<ul class="hot-article-list right-list"></ul>
+</div>
+<div class="right-information">
+	<h4 class="comment-list-title">热门资讯</h4>
+	<ul class="hot-information right-list"></ul>
+</div>
+<script src="/js/base.js"></script>

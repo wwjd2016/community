@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Article = mongoose.model('Article');
 var Category = mongoose.model('Category');
 var User = mongoose.model('User');
+var Q = require("q");
 
 module.exports = function (app) {
 //首页	
@@ -21,7 +22,7 @@ module.exports = function (app) {
 		  		Article.find(temp)
 		  		.skip(20*(parseInt(page)-1))
 				.limit(20)
-				.sort({rep:-1})
+				.sort({"meta.updateAt":-1})
 				.populate('author','_id portrait')
 				.exec(function (err, articles) {
 				    if (err) return next(err);
@@ -48,11 +49,18 @@ app.get('/about',function(req,res,next){
 })
 
 //会员统计
-app.post('/user/get',function(req,res,next){
+app.get('/publics/get',function(req,res,next){
 	User.count({},function(err,count){
-		res.json({
-			count:count
+			Article.find({})
+					.sort({rep:-1})
+					.limit(5)
+					.exec(function(err,article){
+						res.json({
+							count:count,
+							article:article
+						})
+					})
 		})
-	})
-})
-};
+
+});
+}
