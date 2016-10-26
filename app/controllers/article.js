@@ -5,6 +5,7 @@ var Category = mongoose.model('Category');
 var Comment = mongoose.model('Comment');
 var ueditor = require("ueditor");
 var path = require('path');
+var PublicFun = require('../public.js');
 module.exports = function (app) {
 		//限制必须登录操作
 app.use(['/article/comment','/ueditor/article','/article/new','/article/editor/:id','/article/editor/category','/article/delete/:id'],function(req,res,next){
@@ -136,6 +137,7 @@ app.post('/article/new', function (req, res, next) {
 	  		category:articleObj.category,
 	  		text:articleObj.text
 	  	});
+  	PublicFun.clearRecommend();
   	articleEntity.save(function(err,article){
   		if (err) {console.log(err)};
   		Category.findOne({_id:articleObj.category},function(err,category){
@@ -160,9 +162,11 @@ app.post('/article/new', function (req, res, next) {
   	})
   	
 });
+
 //统计评论数
 app.post('/article/comment',function(req,res,next){
 	var commentObj = req.body;
+	PublicFun.clearRecommend();
 	Article.findOne({_id:commentObj.articleId},function(err,article){
 		if (err) {console.log(err)};
 		article.rep = article.rep+1;//评论数加1

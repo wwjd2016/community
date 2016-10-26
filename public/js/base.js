@@ -2,17 +2,24 @@ $(function(){
 		//获取会员数&右侧推荐资讯
 	$.ajax({
 		type:"get",
-		url:"/publics/get",
+		url:"/publicbase/get",
 		success:function(data){
+			console.log(data)
 			$(".user-count").text(data.count);
-			var hot_ul = $(".hot-article-list");
+			var hot_ul = $(".hot-article-list");//热门分享
+			var hot_infor = $(".hot-information");
 			var li_item = "";
-			data.article.forEach(function(item,key){
+			var li_item2 = "";
+			data.data.shareArticles.forEach(function(item,key){
 				var time = new Date(item.meta.createAt);
-				li_item +='<li><a href="/article/details/'+item._id+'">'+item.title.substring(0,10)+'</a><span class="pull-right">'
-				+ time.getFullYear()+'/'+time.getMonth()+'/'+time.getDay()+'</span></li>'
+				li_item +='<li><a href="/article/details/'+item._id+'">'+item.title.substring(0,15)+'</a></li>'
+			})
+			data.data.informationArticles.forEach(function(item,key){
+				var time = new Date(item.meta.createAt);
+				li_item2 +='<li><a href="/article/details/'+item._id+'">'+item.title.substring(0,15)+'</a></li>'
 			})
 			hot_ul.html(li_item)
+			hot_infor.html(li_item2)
 		}
 	});
 	//未读消息

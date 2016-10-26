@@ -3,7 +3,7 @@ var Article = mongoose.model('Article');
 var Category = mongoose.model('Category');
 var User = mongoose.model('User');
 var Q = require("q");
-
+var PublicFun = require('../public.js');
 module.exports = function (app) {
 //首页	
   app.get('/', function (req, res, next) {
@@ -49,18 +49,15 @@ app.get('/about',function(req,res,next){
 })
 
 //会员统计
-app.get('/publics/get',function(req,res,next){
-	User.count({},function(err,count){
-			Article.find({})
-					.sort({rep:-1})
-					.limit(5)
-					.exec(function(err,article){
-						res.json({
-							count:count,
-							article:article
-						})
-					})
+app.get('/publicbase/get',function(req,res,next) {
+	PublicFun.recommend(function(data){
+		User.count({})
+		.exec(function(err,count){
+			res.json({count:count,data:data})
 		})
-
+	});
 });
 }
+
+
+		
