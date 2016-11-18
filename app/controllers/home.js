@@ -48,9 +48,10 @@ app.get('/about',function(req,res,next){
 	res.render('about',{title:"关于我们"});
 })
 
-//会员统计
+//会员统计和文章
 app.get('/publicbase/get',function(req,res,next) {
 	PublicFun.recommend(function(data){
+		console.log("//////////////"+data)
 		User.count({})
 		.exec(function(err,count){
 			res.json({count:count,data:data})
