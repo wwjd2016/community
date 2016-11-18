@@ -34,6 +34,7 @@ module.exports = function(app, config) {
   app.use(methodOverride());
   app.use(compressSession({
     secret:"wechat",
+    cookie:{maxAge:3600000 * 24 * 30},
     store: new mongoStore({
       url: config.db,
       collection: 'sessions'

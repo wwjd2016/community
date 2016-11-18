@@ -22,8 +22,8 @@ exports.recommend = function(cb){
 				})
 				.then(function(informationCategory){
 					return Article.find({category:informationCategory._id})
-								  .sort({rep:-1})
-								   .limit(5)
+								  .sort({"meta.updateAt":-1})
+								  .limit(5)
 				})
 				.then(function(informationArticles){
 					hot_aticle.informationArticles = informationArticles;
