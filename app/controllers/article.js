@@ -33,20 +33,33 @@ app.get('/article/new',function(req,res,next){
 //修改文章
 app.get('/article/editor/:id',function(req,res,next){
 	var articleId = req.params.id;
+	var resObj = {
+		title:"修改文章"
+	}
 	Article.findOne({_id:articleId})
 			.populate('category','name')
-			.exec(function(err,article){
-				if (err) {console.log(err)};
-				Category.find({},function(err,categorys){
-					if (err) {console.log(err)};
-					res.render('newArticle',{
-						title:"修改文章",
-						categorys:categorys,
-						mark:articleId,
-						article:article
-					})
-				})
+			.then(function(article){
+				resObj.mark = articleId;
+				resObj.article = article;
+				return Category.find({})
+			}).then(function(categorys){
+				resObj.categorys = categorys;
+				res.render("newArticle",resObj)
 			})
+	// Article.findOne({_id:articleId})
+	// 		.populate('category','name')
+	// 		.exec(function(err,article){
+	// 			if (err) {console.log(err)};
+	// 			Category.find({},function(err,categorys){
+	// 				if (err) {console.log(err)};
+	// 				res.render('newArticle',{
+	// 					title:"修改文章",
+	// 					categorys:categorys,
+	// 					mark:articleId,
+	// 					article:article
+	// 				})
+	// 			})
+	// 		})
 })
 //ueditor富文本编辑器请求
 app.use("/ueditor/article", ueditor(path.join(__dirname, '../../public'), function (req, res, next) {
@@ -67,7 +80,6 @@ app.use("/ueditor/article", ueditor(path.join(__dirname, '../../public'), functi
   }
   // 客户端发起其它请求
   else {
-    // console.log('config.json')
     res.setHeader('Content-Type', 'application/json');
     res.redirect('/ueditor/jsp/config.json');
   }
@@ -99,6 +111,7 @@ app.post('/article/editor/category',function(req,res,next){
 			message:"0"
 		});
 	}
+	
 	Category.findOne({_id:data.category},function(err,category){
 		if (err) {console.log(err)};
 		var index = category.article.indexOf(data.articleId);

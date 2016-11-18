@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var Article = mongoose.model('Article');
 var Category = mongoose.model('Category');
 var User = mongoose.model('User');
-var Q = require("q");
 var PublicFun = require('../public.js');
 module.exports = function (app) {
 //首页	
@@ -51,7 +50,6 @@ app.get('/about',function(req,res,next){
 //会员统计和文章
 app.get('/publicbase/get',function(req,res,next) {
 	PublicFun.recommend(function(data){
-		console.log("//////////////"+data)
 		User.count({})
 		.exec(function(err,count){
 			res.json({count:count,data:data})
